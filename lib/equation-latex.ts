@@ -28,7 +28,7 @@ export async function generateEquationLatex(input: {
   if (!modelId || !apiKey) return { error: "Equation AI is not configured." };
 
   try {
-    const openrouter = createOpenRouter({ apiKey });
+    const openrouter = createOpenRouter({ apiKey, baseURL: process.env.OPENROUTER_BASE_URL?.trim() || undefined });
     const generate = async () => generateText({
           model: openrouter(modelId),
           system: [
