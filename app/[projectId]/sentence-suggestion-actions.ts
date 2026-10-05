@@ -359,7 +359,7 @@ export async function generateSentenceSuggestion(input: unknown): Promise<Senten
 
   let modelOutput: string;
   try {
-    const openrouter = createOpenRouter({ apiKey });
+    const openrouter = createOpenRouter({ apiKey, baseURL: process.env.OPENROUTER_BASE_URL?.trim() || undefined });
     const generate = async () => generateText({
           model: openrouter(modelId),
           system: buildSystemPrompt(blockKind, {
