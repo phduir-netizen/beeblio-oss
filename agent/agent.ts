@@ -22,7 +22,7 @@ export default defineAgent({
     events: {
       "step.started": async () => {
         const fetch = timedModelFetch();
-        const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY, fetch });
+        const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY, baseURL: process.env.OPENROUTER_BASE_URL?.trim() || undefined, fetch });
         const { modelId, contextWindow } = mainModelConfig();
         return { model: openrouter(modelId), modelContextWindowTokens: contextWindow };
       },
