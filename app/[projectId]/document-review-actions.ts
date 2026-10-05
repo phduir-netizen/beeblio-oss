@@ -238,7 +238,7 @@ export async function reviewDocument(input: unknown): Promise<DocumentReviewResu
     ? `\nTone preset: ${parsed.data.tonePreset ?? "formal-academic"}.${parsed.data.styleReference ? `\nStyle reference (analyze characteristics only):\n${parsed.data.styleReference}` : ""}`
     : "";
   try {
-    const openrouter = createOpenRouter({ apiKey });
+    const openrouter = createOpenRouter({ apiKey, baseURL: process.env.OPENROUTER_BASE_URL?.trim() || undefined });
     const chunks = chunkDocumentForReview(parsed.data.content);
     const catalog = bibliographyCatalog(bibliography);
     // One review settles as one ledger row: chunk, retry, and synthesis calls
