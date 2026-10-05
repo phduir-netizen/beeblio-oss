@@ -15,7 +15,7 @@ export async function generateConversationTitle(firstMessage: string | undefined
   }
 
   try {
-    const openrouter = createOpenRouter({ apiKey });
+    const openrouter = createOpenRouter({ apiKey, baseURL: process.env.OPENROUTER_BASE_URL?.trim() || undefined });
     const result = await generateText({
       model: openrouter(modelId),
       system:
