@@ -62,7 +62,11 @@ const env = {
 };
 
 if (codexBinDir) {
-  env.PATH = `${codexBinDir}${path.delimiter}${env.PATH || ""}`;
+  // Preserve Windows' existing Path/PATH entry exactly, then prepend codex.exe.
+  // Adding a new differently-cased PATH key can hide Node from cmd.exe.
+  const pathKey = Object.keys(env).find((key) => key.toLowerCase() === "path") || "Path";
+  const existingPath = env[pathKey] || "";
+  env[pathKey] = `${codexBinDir}${path.delimiter}${existingPath}`;
   env.CODEX_CLI_PATH = env.CODEX_CLI_PATH || path.join(codexBinDir, "codex.exe");
   console.log(`Using native Codex CLI: ${env.CODEX_CLI_PATH}`);
 } else if (isWindows) {
