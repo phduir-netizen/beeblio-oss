@@ -28,7 +28,7 @@ export default defineAgent({
       },
     },
   }),
-  reasoning: "medium",
+  reasoning: "none",
   limits: {
     // Input consumption re-bills the full context every model call, so it grows
     // far faster than context size; 5M keeps the continuation prompt out of
